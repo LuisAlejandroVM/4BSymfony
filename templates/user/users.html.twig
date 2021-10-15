@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Hola</h1>
+    <h1>Listado de usuarios</h1>
     <table class="table table-hover">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>#</th>
                 <th>Nombre completo</th>
                 <th>Correo electrónico</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -22,8 +23,19 @@
                     <td>{{ users.name }} {{ users.lastname }}</td>
                     <td>{{ users.email }}</td>
                     <td>
-                        <button class="btn btn-outline-primary">Actualizar</button>
-                        <button class="btn btn-outline-danger">Eliminar</button>
+                        {% if users.status == 1 %}
+                            <span class="badge bg-success">Activo</span>
+                        {% else %}
+                            <span class="badge bg-danger">Inactivo</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if users.status == 1 %}
+                            <button class="btn btn-outline-primary">Actualizar</button>
+                            <button class="btn btn-outline-danger">Eliminar</button>
+                        {% else %}
+                            <button class="btn btn-outline-info">Detalles</button>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
