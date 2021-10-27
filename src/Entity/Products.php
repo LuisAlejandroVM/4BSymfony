@@ -31,9 +31,9 @@ class Products
     /**
      * @var string
      *
-     * @ORM\Column(name="precio", type="decimal", precision=7, scale=2, nullable=false)
+     * @ORM\Column(name="price", type="decimal", precision=7, scale=2, nullable=false)
      */
-    private $precio;
+    private $price;
 
     /**
      * @var int
@@ -59,14 +59,14 @@ class Products
         return $this;
     }
 
-    public function getPrecio(): ?string
+    public function getPrice(): ?string
     {
-        return $this->precio;
+        return $this->price;
     }
 
-    public function setPrecio(string $precio): self
+    public function setPrice(string $price): self
     {
-        $this->precio = $precio;
+        $this->price = $price;
 
         return $this;
     }

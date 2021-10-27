@@ -1,3 +1,11 @@
 index:
-   path: /
+   path: /products
    controller: App\Controller\ProductsController::index
+
+product_by_id:
+   path: /product/{id}
+   controller: App\Controller\ProductsController::product_by_id
+
+create_product:
+   path: /product/create
+   controller: App\Controller\ProductsController::create_product
