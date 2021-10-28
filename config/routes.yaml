@@ -1,11 +1,15 @@
-index:
+products:
    path: /products
-   controller: App\Controller\ProductsController::index
-
-product_by_id:
-   path: /product/{id}
-   controller: App\Controller\ProductsController::product_by_id
+   controller: App\Controller\ProductsController::products
 
 create_product:
    path: /product/create
    controller: App\Controller\ProductsController::create_product
+
+update_product:
+   path: /product/update/{id}
+   controller: App\Controller\ProductsController::update_product
+
+product_by_id:
+   path: /product/{id}
+   controller: App\Controller\ProductsController::product_by_id

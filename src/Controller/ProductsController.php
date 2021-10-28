@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ProductsController extends AbstractController{
     
-    public function index(){
+    public function products(){
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery('SELECT p.idproduct, p.name, p.price, p.status FROM App:Products p');
         $listProducts = $query->getResult();
@@ -51,29 +51,46 @@ class ProductsController extends AbstractController{
 
     public function create_product(Request $request){
         $em = $this->getDoctrine()->getManager();
-        var_dump("XD");
-        $json = $request->get('data', null);
-        $params = json_decode($json);
-        var_dump($params);
-        // if($params != null){
-        //     $product = new \App\Entity\Products();
+        
+        $name = $request->get('name', null);
+        $price = $request->get('price', null);
 
-        //     $product->setName($params->name);
-        //     $product->setPrice($params->price);
-        //     $product->setStatus(1);
+        $product = new \App\Entity\Products();
 
-        //     $em->persist($product);
-        //     $em->flush();
+        $product->setName($name);
+        $product->setPrice($price);
+        $product->setStatus(1);
 
-        //     $data = [
-        //         'status' => 200,
-        //         'message' => 'Se ha creado correctamente.',
-        //         'product' => $product
-        //     ];
-        // } else {
-        //     $data = [ 'status' => 404, 'message' => 'No se ha creado correctamente.' ];
-        // }
+        $em->persist($product);
+        $em->flush();
 
-        // return new JsonResponse($data);
+        $data = [
+            'status' => 200,
+            'message' => 'Se ha creado correctamente.'
+        ];
+
+        return new JsonResponse($data);
+    }
+
+    public function update_product(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        
+        $name = $request->get('name', null);
+        $price = $request->get('price', null);
+
+        // $product = new \App\Entity\Products();
+        $query = $em->createQuery('UPDATE App:Products p SET p.name = :name, p.price = :price WHERE p.idproduct = :id');
+        $query->setParameter(':name', $name);
+        $query->setParameter(':price', $price);
+        $query->setParameter(':id', $id);
+        $flag = $query->getResult();
+
+        if($flag == 1){
+            $data = [ 'status' => 200, 'message' => 'Se ha actualizado correctamente.' ];
+        } else {
+            $data = [ 'status' => 400, 'message' => 'No se ha actualizado correctamente.' ];
+        }
+
+        return new JsonResponse($data);
     }
 }
